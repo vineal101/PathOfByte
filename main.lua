@@ -49,40 +49,49 @@
 -- end
 Object = require 'lib/classic/classic'
 Circle = require 'obj.Circle'
+HyperCircle = require 'obj.HyperCircle'
+
 image = love.graphics.newImage('sans.png')
-function love.load()
-    local object_files = {}
-    recursiveEnumerate('objects', object_files)
-    requireFiles(object_files)
-end
 
-function recursiveEnumerate(folder, file_list)
-    local items = love.filesystem.getDirectoryItems(folder)
-    for _, item in ipairs(items) do
-        local file = folder .. '/' .. item
-        if love.filesystem.isFile(file) then
-            table.insert(file_list, file)
-        elseif love.filesystem.isDirectory(file) then
-            recursiveEnumerate(file, file_list)
-        end
-    end
-end
+-- function love.load()
+--     local object_files = {}
+--     recursiveEnumerate('objects', object_files)
+--     requireFiles(object_files)
+-- end
 
-function requireFiles(files)
-    for _, file in ipairs(files) do
-        local file = file:sub(1, -5)
-        require(file)
-    end
-end
+-- old recursion based require object files... maybe just require normally from now on
+
+-- function recursiveEnumerate(folder, file_list)
+--     local items = love.filesystem.getDirectoryItems(folder)
+--     for _, item in ipairs(items) do
+--         local file = folder .. '/' .. item
+--         if love.filesystem.isFile(file) then
+--             table.insert(file_list, file)
+--         elseif love.filesystem.isDirectory(file) then
+--             recursiveEnumerate(file, file_list)
+--         end
+--     end
+-- end
+
+-- function requireFiles(files)
+--     for _, file in ipairs(files) do
+--         local file = file:sub(1, -5)
+--         require(file)
+--     end
+-- end
 
 -- function love.update(dt)
 
 -- end
 love.window.setMode(1000,1000, {resizable=false, vsync=true})
-circle_instance = Circle(400, 300, 50)
+local circle_instance = Circle(400, 300, 50)
+local hypercircle_instance = HyperCircle(400, 300, 50, 10, 120)
+
 
 function love.draw()
     circle_instance:draw()
-    print(circle_instance.creation_time)
-    love.graphics.draw(image, love.math.random(0, 1900), love.math.random(0, 1000))
+    hypercircle_instance:draw()
+    -- print(circle_instance.creation_time)
+    -- love.graphics.draw(image, love.math.random(0, 1900), love.math.random(0, 1000))
+    -- hyper_circle_instance:draw()
 end

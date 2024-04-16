@@ -1,6 +1,6 @@
-local Object = require 'lib/classic/classic'
+Object = require 'lib/classic/classic'
 
-local Circle = Object:extend()
+Circle = Object:extend()
 
 function Circle:new(x, y, radius)
     self.xCord = x
